@@ -10,15 +10,28 @@ public class CameraController : MonoBehaviour
 	[SerializeField]
 	float zoomSpeed;
 	[SerializeField]
+	float zoomInOutValue = 1;
+	[SerializeField]
 	Camera controlledCamera;
 	Vector2 f0start = new Vector2();
 	Vector2 f1start = new Vector2();
 	private void LateUpdate()
 	{
 		ZoomFromMobile();
+		controlledCamera.orthographicSize = Mathf.Clamp(controlledCamera.orthographicSize, 0.5f, 50);
 		var target = cameraSpot.position;
 		target.z = transform.position.z;
 		transform.position = Vector3.Lerp(transform.position, target, smooth * Time.deltaTime);
+	}
+
+	public void ZoomIn()
+	{
+		controlledCamera.orthographicSize -= zoomInOutValue;
+	}
+
+	public void ZoomOut()
+	{
+		controlledCamera.orthographicSize += zoomInOutValue;
 	}
 
 	private void ZoomFromMobile()

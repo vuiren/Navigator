@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ActionMode.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 0
+    path: Assets/QR&Code Reader and Generator/Scene/QREncodeScene.unity
+    guid: 6ea8819ec9546294b9f2fb516d6327ba
   m_configObjects: {}
