@@ -9,7 +9,7 @@ public class NameKeeperController : MonoBehaviour
 	[SerializeField]
 	bool doIt;
 	[SerializeField]
-	List<String> namedCells=new List<String>();
+	static List<String> namedCells=new List<String>();
 
 	private void Start()
 	{
@@ -25,4 +25,6 @@ public class NameKeeperController : MonoBehaviour
 			namedCells.AddRange(e.GetcellsNames().OrderBy(x=>x).Select(x=>x));
 		}
 	}
+
+	public static List<String> GetCells() => namedCells;
 }
