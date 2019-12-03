@@ -8,7 +8,7 @@ public class Floor
     private readonly List<Cell> _stairs = new List<Cell>();
     private readonly Transform _floorTransform;
     private readonly int _floorIndex;
-	private static List<string> cellsNames = new List<string>();
+	private List<string> cellsNames = new List<string>();
     public Floor(Transform floor, int floorIndex)
     {
         _floorIndex = floorIndex;
@@ -29,14 +29,14 @@ public class Floor
             _cells[cell.GetCellName()] = cell;
             _cellsByCoord[cell.GetVector3()] = cell;
 			string name = cell.GetCellName();
-			if (name != "")
+			if (name != "" && !cell.IsStairs())
 				cellsNames.Add(name);
         }
     }
 
     public Cell GetCellByName(string cellName)
     {
-        return _cells.ContainsKey(cellName) ? _cells[cellName] : null;
+        return _cells.ContainsKey(cellName) ? _cells[cellName]: null ;
     }
 
     public Cell GetCellByCoord(Vector3Int coord)
@@ -59,7 +59,7 @@ public class Floor
 
     public int GetFloorIndex() => _floorIndex;
 
-	public List<string> GetcellsNames()
+	public List<string> GetCellsNames()
 	{
 		return cellsNames;
 	}

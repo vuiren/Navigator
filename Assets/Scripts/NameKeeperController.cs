@@ -8,10 +8,10 @@ public class NameKeeperController : MonoBehaviour
 {
 	[SerializeField]
 	bool doIt;
-	[SerializeField]
+	static List<List<string>> floorsCells = new List<List<string>>();
 	static List<String> namedCells=new List<String>();
 
-	private void Start()
+	private void Awake()
 	{
 		DoIt();
 	}
@@ -19,12 +19,17 @@ public class NameKeeperController : MonoBehaviour
 	private void DoIt()
 	{
 		var floors = Map.GetFloors();
-		foreach(var e in floors)
+		for (int i = 0; i < floors.Count; i++)
 		{
-			var z = e.GetcellsNames();
-			namedCells.AddRange(e.GetcellsNames().OrderBy(x=>x).Select(x=>x));
+			Floor e = floors[i];
+			List<string> list = e.GetCellsNames().OrderBy(x => x).Select(x => x).ToList();
+			floorsCells.Add(list);
+			var z = e.GetCellsNames();
+			namedCells.AddRange(e.GetCellsNames().OrderBy(x=>x).Select(x=>x));
 		}
 	}
 
 	public static List<String> GetCells() => namedCells;
+
+	public static List<List<string>> GetAllCells() => floorsCells;
 }

@@ -18,7 +18,8 @@ public class MovementController : MonoBehaviour
 
 	private void Start()
 	{
-		SetFinal(DataParser.DataFromQRCode);
+		if (DataParser.DataFromQRCode != null)
+			SetFinal(DataParser.DataFromQRCode);
 	}
 
 	private void StartMoving()
