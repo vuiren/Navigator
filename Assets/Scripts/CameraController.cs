@@ -5,7 +5,7 @@ public class CameraController : MonoBehaviour
 {
 	[SerializeField] private Transform cameraSpot;
 	[SerializeField] private float smooth;
-
+	[SerializeField] float moveSpeed = 20f;
 	[Header("Зум")]
 	[SerializeField]
 	float zoomSpeed;
@@ -15,9 +15,31 @@ public class CameraController : MonoBehaviour
 	Camera controlledCamera;
 	Vector2 f0start = new Vector2();
 	Vector2 f1start = new Vector2();
+	bool cameraLocked = true;
+
+	private void Update()
+	{
+		MoveCamera();
+	}
+
+	private void MoveCamera()
+	{
+		if (Input.touchCount != 1 || Input.GetTouch(0).phase != TouchPhase.Moved)
+			return;
+		var moveVector = -Input.GetTouch(0).deltaPosition;
+		moveVector *= Time.deltaTime * moveSpeed;
+		transform.Translate(moveVector);
+	}
+
 	private void LateUpdate()
 	{
 		ZoomFromMobile();
+		LockOnTarget();
+	}
+
+	private void LockOnTarget()
+	{
+		if (Input.touchCount > 0) return;
 		controlledCamera.orthographicSize = Mathf.Clamp(controlledCamera.orthographicSize, 0.5f, 50);
 		var target = cameraSpot.position;
 		target.z = transform.position.z;
